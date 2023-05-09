@@ -1,0 +1,7 @@
+<suite name="Все тесты" verbose="1" parallel="classes" thread-count="1">
+    <test name="Все тесты">
+        <classes>
+            <class name="tests.onBoarding.OnboardingTest"/>
+        </classes>
+    </test>
+</suite>
