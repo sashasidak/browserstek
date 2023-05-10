@@ -1,8 +1,19 @@
-# browserstek
-how to add browserstek in my project
+# browserstak
+how to add browserstak in my project
 
 
-1) Take my AmmerWallet project and push it in browserstek
-2) Write first test for the "Wikipedia.apk"
-3) Check documentations for include browserstek
-4) Try include it 
+1) Take my AmmerWallet project and push it in browserstak - done
+2) Write first test for the "abank.apk" - done
+3) Check documentations for include browserstak - done
+4) Try include it - done for aos
+5) Include it for iOS
+6) Try modify for run at 2 devices
+7) Refactor project at 2 applications 
+
+
+
+Next:
+1) Integret Jankins in project
+2) Integrate Jankins in Browserstak
+3) Integrate massage in Telegram
+4) Do scidule
