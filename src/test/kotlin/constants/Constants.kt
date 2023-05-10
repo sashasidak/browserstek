@@ -3,7 +3,7 @@ package constants
 class Constants {
 
     object RunVariables {
-        val PLATFORM = Platform.IOS
+        val PLATFORM = Platform.AOS
     }
 
     enum class Platform {

@@ -29,7 +29,7 @@ open class ApplicationManager {
     fun createDriver(): AppiumDriver<*> {
         var driver: AppiumDriver<*>? = null
         try {
-            val url = URL("http://127.0.0.1:4723/wd/hub")
+            val url = URL("http://hub.browserstack.com/wd/hub")
             return when (Constants.RunVariables.PLATFORM) {
                 Constants.Platform.IOS -> {
                     if (driver == null) {
@@ -55,14 +55,21 @@ open class ApplicationManager {
     private val androidDesiredCapabilities: DesiredCapabilities
         get() {
             val desiredCapabilities = DesiredCapabilities()
-            desiredCapabilities.setCapability(DEVICE_NAME, getValue("AOS_DEVICE_NAME"))
-            desiredCapabilities.setCapability(UDID, getValue("AOS_UDID"))
-            desiredCapabilities.setCapability(PLATFORM_NAME, "Android")
-            desiredCapabilities.setCapability(PLATFORM_VERSION, getValue("AOS_PLATFORM_VERSION"))
-            desiredCapabilities.setCapability(APP_PACKAGE, "trustody.wallet")
-            desiredCapabilities.setCapability(APP_ACTIVITY, "trustody.wallet.screens.MainActivity")
-            desiredCapabilities.setCapability(AUTO_GRANT_PERMISSIONS, false)
-            desiredCapabilities.setCapability(NO_RESET, true)
+            desiredCapabilities.setCapability(AUTO_GRANT_PERMISSIONS, true)
+            desiredCapabilities.setCapability("browserstack.user", "testabank1")
+            desiredCapabilities.setCapability("browserstack.key", "jxaBHX8UzqyRxWs8PKjL")
+
+            // Set URL of the application under test
+            desiredCapabilities.setCapability("app", "bs://c9a6e31e18282a2697a51317972655e97011ee8e")
+
+            // Specify device and os_version for testing
+            desiredCapabilities.setCapability("device", "Google Pixel 3");
+            desiredCapabilities.setCapability("os_version", "9.0");
+
+            // Set other BrowserStack capabilities
+            desiredCapabilities.setCapability("project", "First Java Project");
+            desiredCapabilities.setCapability("build", "browserstack-build-2");
+            desiredCapabilities.setCapability("name", "next_test");
             return desiredCapabilities
         }
 
@@ -76,6 +83,8 @@ open class ApplicationManager {
             desiredCapabilities.setCapability(UDID, getValue("IOS_UDID"))
             desiredCapabilities.setCapability("autoAcceptAlerts", true)
             desiredCapabilities.setCapability("bundleId", "io.trustody.wallet")
+            desiredCapabilities.setCapability("browserstack.user", "testabank1")
+            desiredCapabilities.setCapability("browserstack.key", "jxaBHX8UzqyRxWs8PKjL")
             return desiredCapabilities
         }
 
