@@ -5,10 +5,11 @@ how to add browserstak in my project
 1) Take my AmmerWallet project and push it in browserstak - done
 2) Write first test for the "abank.apk" - done
 3) Check documentations for include browserstak - done
-4) Try include it - done for aos
+4) Try include it - done (for AOS)
 5) Include it for iOS
-6) Try modify for run at 2 devices
-7) Refactor project at 2 applications 
+6) Send "Status"
+7) Try modify for run at 2 devices
+8) Refactor project at 2 applications 
 
 
 
