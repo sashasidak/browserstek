@@ -9,7 +9,6 @@ how to add browserstak in my project
 5) Include it for iOS
 6) Send "Status"
 7) Try modify for run at 2 devices
-8) Refactor project at 2 applications 
 
 
 
