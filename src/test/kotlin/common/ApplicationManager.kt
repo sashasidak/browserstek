@@ -18,12 +18,17 @@ import java.lang.reflect.Constructor
 import java.lang.reflect.InvocationTargetException
 import java.net.MalformedURLException
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
+
 
 open class ApplicationManager {
 
     private var driver: AppiumDriver<*>? = null
     private val clipboard = Selenide.clipboard()
+    var formater = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    var date: Date = Date()
 
     @JvmName("getDriver1")
     fun createDriver(): AppiumDriver<*> {
@@ -58,18 +63,15 @@ open class ApplicationManager {
             desiredCapabilities.setCapability(AUTO_GRANT_PERMISSIONS, true)
             desiredCapabilities.setCapability("browserstack.user", "testabank1")
             desiredCapabilities.setCapability("browserstack.key", "jxaBHX8UzqyRxWs8PKjL")
-
             // Set URL of the application under test
-            desiredCapabilities.setCapability("app", "bs://c9a6e31e18282a2697a51317972655e97011ee8e")
-
+            desiredCapabilities.setCapability("app", getValue("AOS_APK"))
             // Specify device and os_version for testing
-            desiredCapabilities.setCapability("device", "Google Pixel 3");
-            desiredCapabilities.setCapability("os_version", "9.0");
-
+            desiredCapabilities.setCapability("device", getValue("AOS_DEVICE_NAME"));
+            desiredCapabilities.setCapability("os_version", getValue("AOS_PLATFORM_VERSION"));
             // Set other BrowserStack capabilities
-            desiredCapabilities.setCapability("project", "First Java Project");
-            desiredCapabilities.setCapability("build", "browserstack-build-2");
-            desiredCapabilities.setCapability("name", "next_test");
+            desiredCapabilities.setCapability("project", "AppiumMobileProject");
+            desiredCapabilities.setCapability("build", formater.format(date).toString());
+            desiredCapabilities.setCapability("name", "LetsDoIt");
             return desiredCapabilities
         }
 

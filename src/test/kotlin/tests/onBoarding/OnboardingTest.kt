@@ -13,11 +13,5 @@ class OnboardingTest : BaseTest() {
             .fullAuth()
             .clickOnDontHaveAmmerCard()
     }
-    @Test
-    fun sendlet() {
-        applicationManager.getHelper<AuthHelper>()
-            .fullAuth()
-            .clickOnDontHaveAmmerCard()
-    }
 }
 
