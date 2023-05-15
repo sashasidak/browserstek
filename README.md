@@ -6,9 +6,10 @@ how to add browserstak in my project
 2) Write first test for the "abank.apk" - done
 3) Check documentations for include browserstak - done
 4) Try include it - done (for AOS)
-5) Include it for iOS
-6) Send "Status"
-7) Try modify for run at 2 devices
+5) Include it for iOS - done
+6) Include local run
+7) Send "Status"
+8) Try modify for run at 2 devices
 
 
 
