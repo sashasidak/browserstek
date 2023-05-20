@@ -2,19 +2,17 @@
 how to add browserstak in my project
 
 
-1) Take my AmmerWallet project and push it in browserstak - done
+1) Take my Kotlin project and push it in "browserstak" - done
 2) Write first test for the "abank.apk" - done
 3) Check documentations for include browserstak - done
-4) Try include it - done (for AOS)
+4) Include it for AOS - done
 5) Include it for iOS - done
-6) Include local run
-7) Send "Status"
-8) Try modify for run at 2 devices
+7) Send "Status" - done
+8) Try modify for run at 2 devices - done
 
 
 
 Next:
-1) Integret Jankins in project
-2) Integrate Jankins in Browserstak
+1) Integrate Jankins in project
 3) Integrate massage in Telegram
 4) Do scidule
