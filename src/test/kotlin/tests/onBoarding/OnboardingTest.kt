@@ -12,7 +12,6 @@ class OnboardingTest : BaseTest() {
         applicationManager.getHelper<AuthHelper>()
             .fullAuth()
             .clickOn()
-//            .clickOnDontHaveAmmerCard()
     }
 }
 

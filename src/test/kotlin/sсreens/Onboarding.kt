@@ -2,7 +2,6 @@ package sсreens
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.SelenideElement
-import common.extensions.type
 import common.helpers.WaitsHelper.implicitlyWait
 import io.appium.java_client.pagefactory.AndroidFindBy
 import io.appium.java_client.pagefactory.iOSXCUITFindBy
@@ -16,15 +15,14 @@ class Onboarding : AnyScreen() {
     @iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"No\"]")
     private val dontHaveAmmerCard: SelenideElement? = null
 
-    @AndroidFindBy(id = "ua.com.abank:id/tvText")
+    @AndroidFindBy(id = "ua.com.abank:id/etPhoneNumber")
     @iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[@name=\"ABank24\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther[3]/XCUIElementTypeTextField")
     private val dontHaveAmmer: SelenideElement? = null
 
-    @AndroidFindBy(id = "ua.com.abank:id/tvText")
     @iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Далі\"]")
     private val dontHmmer: SelenideElement? = null
 
-    @AndroidFindBy(id = "ua.com.abank:id/tvText")
+    @AndroidFindBy(xpath = "//android.widget.TextView[contains(@text, 'Код для входу')]")
     @iOSXCUITFindBy(accessibility = "Код для входу")
     private val doner: SelenideElement? = null
 
@@ -37,8 +35,14 @@ class Onboarding : AnyScreen() {
     fun clickOn(): Onboarding {
         dontHaveAmmer?.shouldBe(Condition.visible, Duration.ofSeconds(15))
         dontHaveAmmer?.click()
-        dontHaveAmmer?.type("507061794")
-        dontHmmer?.click()
+        dontHaveAmmer?.sendKeys("507061794")
+        when (constants.Constants.RunVariables.PLATFORM) {
+            constants.Constants.Platform.IOS -> {
+                dontHmmer?.click()
+            }
+            constants.Constants.Platform.AOS -> {
+            }
+        }
         doner?.shouldBe(Condition.visible, Duration.ofSeconds(10))
         return applicationManager.getScreen()
     }

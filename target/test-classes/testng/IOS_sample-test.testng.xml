@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel" thread-count="2" parallel="tests">
+<test name="iPhone 8">
+    <parameter name="deviceIndex" value="0"/>
+    <classes>
+        <class name="tests.onBoarding.OnboardingTest"/>
+    </classes>
+</test>
+
+<test name="iPhone 11">
+    <parameter name="deviceIndex" value="1"/>
+    <classes>
+        <class name="tests.onBoarding.OnboardingTest"/>
+    </classes>
+</test>
+</suite>
