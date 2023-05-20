@@ -60,7 +60,7 @@ open class ApplicationManager {
     private val androidDesiredCapabilities: DesiredCapabilities
         get() {
             val desiredCapabilities = DesiredCapabilities()
-            desiredCapabilities.setCapability(AUTO_GRANT_PERMISSIONS, true)
+            desiredCapabilities.setCapability("autoGrantPermissions", "true")
             desiredCapabilities.setCapability("browserstack.user", "testabank1")
             desiredCapabilities.setCapability("browserstack.key", "jxaBHX8UzqyRxWs8PKjL")
             // Set URL of the application under test
@@ -69,24 +69,28 @@ open class ApplicationManager {
             desiredCapabilities.setCapability("device", getValue("AOS_DEVICE_NAME"));
             desiredCapabilities.setCapability("os_version", getValue("AOS_PLATFORM_VERSION"));
             // Set other BrowserStack capabilities
-            desiredCapabilities.setCapability("project", "AppiumMobileProject");
+            desiredCapabilities.setCapability("project", "AppiumMobileProjectAOS");
             desiredCapabilities.setCapability("build", formater.format(date).toString());
             desiredCapabilities.setCapability("name", "LetsDoIt");
             return desiredCapabilities
         }
-
     private val iOSDesiredCapabilities: DesiredCapabilities
         get() {
             val desiredCapabilities = DesiredCapabilities()
-            desiredCapabilities.setCapability(DEVICE_NAME, getValue("IOS_DEVICE_NAME"))
-            desiredCapabilities.setCapability("automationName", "XCUITest")
-            desiredCapabilities.setCapability(PLATFORM_VERSION, getValue("IOS_PLATFORM_VERSION"))
-            desiredCapabilities.setCapability(PLATFORM_NAME, "iOS")
-            desiredCapabilities.setCapability(UDID, getValue("IOS_UDID"))
-            desiredCapabilities.setCapability("autoAcceptAlerts", true)
-            desiredCapabilities.setCapability("bundleId", "io.trustody.wallet")
+            // Set your access credentials
             desiredCapabilities.setCapability("browserstack.user", "testabank1")
             desiredCapabilities.setCapability("browserstack.key", "jxaBHX8UzqyRxWs8PKjL")
+            desiredCapabilities.setCapability("autoDismissAlerts", true)
+            desiredCapabilities.setCapability("projectName", "AppiumMobileProjectIOS")
+            desiredCapabilities.setCapability("buildName", formater.format(date).toString())
+            desiredCapabilities.setCapability("sessionName", "LetsDoIt")
+            desiredCapabilities.setCapability("local", "true")
+            // Set URL of the application under test
+            desiredCapabilities.setCapability("app", getValue("IOS_IPA"))
+            // Specify device and os_version for testing
+            desiredCapabilities.setCapability("deviceName", getValue("IOS_DEVICE_NAME"))
+            desiredCapabilities.setCapability("platformName", "ios")
+            desiredCapabilities.setCapability("platformVersion", getValue("IOS_PLATFORM_VERSION"))
             return desiredCapabilities
         }
 

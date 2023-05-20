@@ -11,7 +11,8 @@ class OnboardingTest : BaseTest() {
     fun sendAssetToAnotherWallet() {
         applicationManager.getHelper<AuthHelper>()
             .fullAuth()
-            .clickOnDontHaveAmmerCard()
+            .clickOn()
+//            .clickOnDontHaveAmmerCard()
     }
 }
 
