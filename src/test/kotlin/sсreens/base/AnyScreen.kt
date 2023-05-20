@@ -107,6 +107,8 @@ open class AnyScreen {
 
             Direction.UP -> PlatformTouchAction(applicationManager.getDriver()).press(point(width, endPoint))
                 .waitAction(waitOptions(Duration.ofMillis(3000))).moveTo(point(width, startPoint)).release().perform()
+
+            else -> {}
         }
     }
 
