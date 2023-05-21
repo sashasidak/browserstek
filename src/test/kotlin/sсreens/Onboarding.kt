@@ -35,12 +35,17 @@ class Onboarding : AnyScreen() {
     fun clickOn(): Onboarding {
         dontHaveAmmer?.shouldBe(Condition.visible, Duration.ofSeconds(15))
         dontHaveAmmer?.click()
-        dontHaveAmmer?.sendKeys("507061794")
+        dontHaveAmmer?.sendKeys("967023805")
         when (constants.Constants.RunVariables.PLATFORM) {
             constants.Constants.Platform.IOS -> {
                 dontHmmer?.click()
             }
             constants.Constants.Platform.AOS -> {
+            }
+            constants.Constants.Platform.IOS_LOCAL -> {
+                dontHmmer?.click()
+            }
+            constants.Constants.Platform.AOS_LOCAL -> {
             }
         }
         doner?.shouldBe(Condition.visible, Duration.ofSeconds(10))

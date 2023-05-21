@@ -3,6 +3,7 @@
 <suite name="Parallel" thread-count="2" parallel="tests">
 <test name="iPhone 8">
     <parameter name="deviceIndex" value="0"/>
+    <parameter name="platform" value="IOS"/>
     <classes>
         <class name="tests.onBoarding.OnboardingTest"/>
     </classes>
@@ -10,6 +11,7 @@
 
 <test name="iPhone 11">
     <parameter name="deviceIndex" value="1"/>
+    <parameter name="platform" value="IOS"/>
     <classes>
         <class name="tests.onBoarding.OnboardingTest"/>
     </classes>

@@ -2,11 +2,11 @@ package tests.base
 
 import com.codeborne.selenide.WebDriverRunner
 import common.ApplicationManager
+import constants.Constants
 import org.openqa.selenium.remote.RemoteWebDriver
 import org.openqa.selenium.remote.SessionId
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
-import org.testng.annotations.AfterTest
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Parameters
 import java.io.BufferedReader
@@ -19,10 +19,16 @@ import java.util.*
 var applicationManager: ApplicationManager = ApplicationManager()
 
 open class BaseTest {
-
     @BeforeMethod
-    @Parameters(value = ["deviceIndex"])
-    fun createDriver(deviceIndex: String) {
+    @Parameters(value = ["deviceIndex", "platform"])
+    fun createDriver(deviceIndex: String, platform: String) {
+        Constants.RunVariables.PLATFORM = when (platform) {
+            "IOS" -> Constants.Platform.IOS
+            "AOS" -> Constants.Platform.AOS
+            "IOS_LOCAL" -> Constants.Platform.IOS_LOCAL
+            "AOS_LOCAL" -> Constants.Platform.AOS_LOCAL
+            else -> Constants.RunVariables.PLATFORM
+        }
         WebDriverRunner.setWebDriver(applicationManager.createDriver(deviceIndex))
     }
 

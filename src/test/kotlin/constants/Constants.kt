@@ -3,11 +3,11 @@ package constants
 class Constants {
 
     object RunVariables {
-        val PLATFORM = Platform.AOS
+        var PLATFORM = Platform.IOS_LOCAL
     }
 
     enum class Platform {
-        IOS, AOS
+        IOS, AOS, IOS_LOCAL, AOS_LOCAL
     }
 
 

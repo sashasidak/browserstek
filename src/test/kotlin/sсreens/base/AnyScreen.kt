@@ -37,6 +37,16 @@ open class AnyScreen {
                 alertName = `$`(By.xpath("//android.widget.Button[contains(@text, '$buttonName')]"))
                 alertName.shouldBe(exist)
             }
+            Constants.Platform.IOS_LOCAL -> {
+                alertName = `$`(By.id(buttonName))
+                alertName.shouldBe(visible)
+                alertName.shouldBe(visible, Duration.ofSeconds(2))
+            }
+
+            Constants.Platform.AOS_LOCAL -> {
+                alertName = `$`(By.xpath("//android.widget.Button[contains(@text, '$buttonName')]"))
+                alertName.shouldBe(exist)
+            }
         }
 
         alertName.click()
@@ -55,6 +65,17 @@ open class AnyScreen {
             Constants.Platform.AOS -> {
                 aosScroll(ScrollBy.toText(text))
             }
+            Constants.Platform.IOS_LOCAL -> {
+                var counter = 0
+                while (!`$`(By.name(text)).isDisplayed && counter != 11) {
+                    iosScroll(direction)
+                    counter++
+                }
+            }
+
+            Constants.Platform.AOS_LOCAL -> {
+                aosScroll(ScrollBy.toText(text))
+            }
         }
     }
 
@@ -71,6 +92,17 @@ open class AnyScreen {
             Constants.Platform.AOS -> {
                 aosScroll(ScrollBy.toContentDesk(content))
             }
+            Constants.Platform.IOS_LOCAL -> {
+                var counter = 0
+                while (!`$`(By.xpath("//*[contains(@name,'$content')]")).isDisplayed && counter != 3) {
+                    iosScroll(direction)
+                    counter++
+                }
+            }
+
+            Constants.Platform.AOS_LOCAL -> {
+                aosScroll(ScrollBy.toContentDesk(content))
+            }
         }
     }
 
@@ -85,7 +117,7 @@ open class AnyScreen {
     fun aosScroll(selector: ScrollBy): WebElement? {
         val container = "new UiSelector().scrollable(true)"
         val script = "new UiScrollable($container).setMaxSearchSwipes(8).scrollIntoView(${selector.uiSelector})"
-        return applicationManager.getDriver().findElement(MobileBy.AndroidUIAutomator(script))
+        return applicationManager.getDriver()?.findElement(MobileBy.AndroidUIAutomator(script))
     }
 
     open fun iosScroll(direction: Direction) {
@@ -123,6 +155,13 @@ open class AnyScreen {
             }
 
             Constants.Platform.AOS -> {
+                applicationManager.getDriver().hideKeyboard()
+            }
+            Constants.Platform.IOS_LOCAL -> {
+                applicationManager.getDriver().findElement(By.name(textForIos)).click()
+            }
+
+            Constants.Platform.AOS_LOCAL -> {
                 applicationManager.getDriver().hideKeyboard()
             }
         }
@@ -208,6 +247,108 @@ open class AnyScreen {
                 }
 
                 Constants.Platform.AOS -> {
+                    val rect: Rectangle = el.rect
+                    when (dir) {
+                        Direction.LEFT -> {
+                            pointOptionStart = point(
+                                rect.x + rect.width - edgeBorder,
+                                rect.y + rect.height / 2
+                            )
+                            pointOptionEnd = point(
+                                rect.x + edgeBorder,
+                                rect.y + rect.height / 2
+                            )
+                        }
+
+                        Direction.RIGHT -> {
+                            pointOptionStart = point(
+                                rect.x + edgeBorder,
+                                rect.y + rect.height / 2
+                            )
+                            pointOptionEnd = point(
+                                rect.x + rect.width - edgeBorder,
+                                rect.y + rect.height / 2
+                            )
+                        }
+
+                        else -> throw IllegalArgumentException("swipeElementAndroid(): dir: '$dir' NOT supported")
+                    }
+                    // execute swipe using TouchAction
+                    try {
+                        TouchAction(driver)
+                            .press(pointOptionStart) // a bit more reliable when we add small wait
+                            .waitAction(waitOptions(Duration.ofMillis(PRESS_TIME.toLong())))
+                            .moveTo(pointOptionEnd)
+                            .release().perform()
+                    } catch (e: Exception) {
+                        System.err.println("""swipeElementAndroid(): TouchAction FAILED ${e.message} """.trimIndent())
+                        return
+                    }
+                    // always allow swipe action to complete
+                    try {
+                        Thread.sleep(ANIMATION_TIME.toLong())
+                    } catch (e: InterruptedException) {
+                        // ignore
+                    }
+                }
+                Constants.Platform.IOS_LOCAL -> {
+                    // find rect that overlap screen
+                    if (rect.x < 0) {
+                        rect.width = rect.width + rect.x
+                        rect.x = 0
+                    }
+                    if (rect.y < 0) {
+                        rect.height = rect.height + rect.y
+                        rect.y = 0
+                    }
+                    if (rect.width > dims.width) rect.width = dims.width
+                    if (rect.height > dims.height) rect.height = dims.height
+
+                    when (dir) {
+                        Direction.LEFT -> {
+                            pointOptionStart = point(
+                                rect.x + rect.width - rightBorder,
+                                rect.y + rect.height / 2
+                            )
+                            pointOptionEnd = point(
+                                rect.x + leftBorder,
+                                rect.y + rect.height / 2
+                            )
+                        }
+
+                        Direction.RIGHT -> {
+                            pointOptionStart = point(
+                                rect.x + leftBorder,
+                                rect.y + rect.height / 2
+                            )
+                            pointOptionEnd = point(
+                                rect.x + rect.width - rightBorder,
+                                rect.y + rect.height / 2
+                            )
+                        }
+
+                        else -> throw IllegalArgumentException("swipeElementIOS(): dir: '$dir' NOT supported")
+                    }
+                    // execute swipe using TouchAction
+                    try {
+                        TouchAction(driver)
+                            .press(pointOptionStart) // a bit more reliable when we add small wait
+                            .waitAction(waitOptions(Duration.ofMillis(PRESS_TIME.toLong())))
+                            .moveTo(pointOptionEnd)
+                            .release().perform()
+                    } catch (e: java.lang.Exception) {
+                        System.err.println("""swipeElementIOS(): TouchAction FAILED ${e.message} """.trimIndent())
+                        return
+                    }
+                    // always allow swipe action to complete
+                    try {
+                        Thread.sleep(ANIMATION_TIME.toLong())
+                    } catch (e: InterruptedException) {
+                        // ignore
+                    }
+                }
+
+                Constants.Platform.AOS_LOCAL -> {
                     val rect: Rectangle = el.rect
                     when (dir) {
                         Direction.LEFT -> {

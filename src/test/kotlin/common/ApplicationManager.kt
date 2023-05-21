@@ -4,16 +4,18 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebDriverRunner
 import com.codeborne.selenide.appium.ScreenObject.screen
-import com.google.common.collect.ImmutableMap
+import common.helpers.DataReader.getValue
 import constants.Constants
 import io.appium.java_client.AppiumDriver
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.ios.IOSDriver
 import io.appium.java_client.remote.AndroidMobileCapabilityType.*
+import io.appium.java_client.remote.MobileCapabilityType
 import io.appium.java_client.remote.MobileCapabilityType.*
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
+import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
 import java.io.FileReader
 import java.lang.reflect.Constructor
@@ -32,7 +34,7 @@ open class ApplicationManager {
     var date: Date = Date()
 
     @JvmName("getDriver1")
-    fun createDriver(deviceIndex: String):  AppiumDriver<*>{
+    fun createDriver(deviceIndex: String): AppiumDriver<*>? {
         var driver: AppiumDriver<*>? = null
 
         when (Constants.RunVariables.PLATFORM) {
@@ -135,12 +137,37 @@ open class ApplicationManager {
                 driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS)
                 driver
             }
+            Constants.Platform.AOS_LOCAL -> {
+                val capabilitiesAOS_LOCAL = DesiredCapabilities()
+
+                capabilitiesAOS_LOCAL.setCapability("avd", getValue("AOS_DEVICE_NAME"))
+                capabilitiesAOS_LOCAL.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android")
+                capabilitiesAOS_LOCAL.setCapability(PLATFORM_VERSION, getValue("AOS_PLATFORM_VERSION"))
+                capabilitiesAOS_LOCAL.setCapability("autoGrantPermissions", "true")
+                capabilitiesAOS_LOCAL.setCapability("appPackage", "ua.com.abank")
+                capabilitiesAOS_LOCAL.setCapability("locale", "UA")
+                capabilitiesAOS_LOCAL.setCapability("language", "uk")
+                capabilitiesAOS_LOCAL.setCapability("appActivity", ".core.modules.splash.SplashScreenActivity")
+                capabilitiesAOS_LOCAL.setCapability("appWaitActivity", ".core.modules.login.LoginActivity")
+                capabilitiesAOS_LOCAL.setCapability("newCommandTimeout", 10000)
+                driver = AndroidDriver<SelenideElement>(URL("http://127.0.0.1:4723/wd/hub"), capabilitiesAOS_LOCAL)
+                driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS)
+            }
+            Constants.Platform.IOS_LOCAL -> {
+                val capabilitiesIOS_LOCAL = DesiredCapabilities()
+
+                capabilitiesIOS_LOCAL.setCapability(DEVICE_NAME, getValue("IOS_DEVICE_NAME"))
+                capabilitiesIOS_LOCAL.setCapability("automationName", "XCUITest")
+                capabilitiesIOS_LOCAL.setCapability(PLATFORM_VERSION, getValue("IOS_PLATFORM_VERSION"))
+                capabilitiesIOS_LOCAL.setCapability(CapabilityType.PLATFORM_NAME, "iOS")
+                capabilitiesIOS_LOCAL.setCapability(UDID, getValue("IOS_UDID"))
+                capabilitiesIOS_LOCAL.setCapability("autoAcceptAlerts", true)
+                capabilitiesIOS_LOCAL.setCapability("autoDismissAlerts", true)
+                capabilitiesIOS_LOCAL.setCapability("bundleId", "com.abank24.mobapplication")
+                driver = IOSDriver<SelenideElement>(URL("http://127.0.0.1:4723/wd/hub"), capabilitiesIOS_LOCAL)
+            }
 
             }
-//        } catch (e: MalformedURLException) {
-//            e.printStackTrace()
-//        }
-//        throw IllegalArgumentException("Cannot detect type of the Driver. Platform value: " + "name")
         return driver
     }
 
@@ -175,31 +202,4 @@ open class ApplicationManager {
         return screen(T::class.java)
     }
 
-    fun terminateApp() {
-        when (Constants.RunVariables.PLATFORM) {
-            Constants.Platform.IOS -> getDriver().terminateApp("io.trustody.wallet")
-            Constants.Platform.AOS -> driver?.executeScript(
-                "mobile: terminateApp",
-                ImmutableMap.of("bundleId", "trustody.wallet")
-            )
-        }
-    }
-
-    fun launchApp() {
-        when (Constants.RunVariables.PLATFORM) {
-            Constants.Platform.IOS -> getDriver().launchApp()
-            Constants.Platform.AOS -> driver?.executeScript(
-                "mobile: launchApp",
-                ImmutableMap.of("bundleId", "trustody.wallet")
-            )
-        }
-    }
-
-    fun setClipboardText(text: String) {
-        clipboard.text = text
-    }
-
-    fun getClipboardText(): String {
-        return clipboard.text
-    }
 }
