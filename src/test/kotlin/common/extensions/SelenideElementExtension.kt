@@ -44,6 +44,23 @@ fun SelenideElement?.longTap() {
             a.clickAndHold(this)
             a.perform()
         }
+        Constants.Platform.IOS_LOCAL -> {
+            val point: Point = this?.location!!
+            val dimension: Dimension = this.size!!
+            var x = point.x + dimension.width / 2
+            var y = point.y + dimension.height / 2
+            PlatformTouchAction(applicationManager.getDriver() as MobileDriver<*>)
+                .press(PointOption.point(x, y))
+                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(10)))
+                .release()
+                .perform()
+        }
+
+        Constants.Platform.AOS_LOCAL -> {
+            val a = Actions(applicationManager.getDriver())
+            a.clickAndHold(this)
+            a.perform()
+        }
     }
 
 }

@@ -32,6 +32,12 @@ class Finder {
             Constants.Platform.AOS -> {
                 element = Selenide.`$`(aosFinder)
             }
+            Constants.Platform.IOS_LOCAL -> {
+                element = Selenide.`$`(iosFinder)
+            }
+            Constants.Platform.AOS_LOCAL -> {
+                element = Selenide.`$`(aosFinder)
+            }
         }
         return element
     }
