@@ -16,3 +16,8 @@ Next:
 1) Integrate Jankins in project
 2) Integrate massage in Telegram - done
 3) Do Run tests from TelegramBot
+
+
+Maybe:
+1) Include VRT
+2) Integrete WireMock
