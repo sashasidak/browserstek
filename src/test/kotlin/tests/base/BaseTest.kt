@@ -14,6 +14,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
+import org.testng.annotations.Optional
 
 
 var applicationManager: ApplicationManager = ApplicationManager()
@@ -21,15 +22,13 @@ var applicationManager: ApplicationManager = ApplicationManager()
 open class BaseTest {
     @BeforeMethod
     @Parameters(value = ["deviceIndex", "platform"])
-    fun createDriver(deviceIndex: String, platform: String) {
-        Constants.RunVariables.PLATFORM = when (platform) {
-            "IOS" -> Constants.Platform.IOS
-            "AOS" -> Constants.Platform.AOS
-            "IOS_LOCAL" -> Constants.Platform.IOS_LOCAL
-            "AOS_LOCAL" -> Constants.Platform.AOS_LOCAL
-            else -> Constants.RunVariables.PLATFORM
-        }
-        WebDriverRunner.setWebDriver(applicationManager.createDriver(deviceIndex))
+    fun createDriver(@Optional deviceIndex: String?, @Optional platform: String?) {
+        val resolvedDeviceIndex = deviceIndex ?: "0"
+        val resolvedPlatform = platform ?: Constants.RunVariables.PLATFORM.name
+
+        Constants.RunVariables.PLATFORM = Constants.Platform.valueOf(resolvedPlatform)
+
+        WebDriverRunner.setWebDriver(applicationManager.createDriver(resolvedDeviceIndex))
     }
 
     @AfterMethod
