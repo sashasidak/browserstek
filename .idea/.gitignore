@@ -3,5 +3,6 @@
 /workspace.xml
 /target/
 /build/
+/build/reports/tests
 /logs/
 /devices.props
