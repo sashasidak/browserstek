@@ -14,5 +14,6 @@ how to add browserstak in my project
 
 Next:
 1) Integrate Jankins in project
-3) Integrate massage in Telegram
+3) Integrate massage in Telegram - done
 4) Do scidule
+5) Do Run tests from TelegramBot
