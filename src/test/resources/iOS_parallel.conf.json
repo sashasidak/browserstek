@@ -10,6 +10,7 @@
         "browserstack.debug": true,
         "autoDismissAlerts": true,
         "autoAcceptAlerts": true,
+        "browserstack.networkLogs": true,
         "app": "bs://a1fd16012b15f0f7a3921b56b1d644238126c94a"
     },
 

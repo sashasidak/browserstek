@@ -9,6 +9,7 @@
         "name": "Mob_A-Bank24_tests",
         "browserstack.debug": true,
         "autoGrantPermissions": true,
+        "browserstack.networkLogs": true,
         "app": "bs://c7d710900e4d4f64f37bb66f52619b7a9cc40687"
     },
 
