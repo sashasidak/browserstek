@@ -19,6 +19,5 @@ Next:
 
 Maybe:
 1) Include VRT
-2) Integrete WireMock
-3) Do Run tests from TelegramBot
+2) Do Run tests from TelegramBot
 
