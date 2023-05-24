@@ -3,7 +3,7 @@ package constants
 class Constants {
 
     object RunVariables {
-        var PLATFORM = Platform.IOS_LOCAL
+        var PLATFORM = Platform.AOS_LOCAL
     }
 
     enum class Platform {
