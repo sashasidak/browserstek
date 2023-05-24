@@ -1,10 +1,14 @@
 package tests.base
 
 import common.MyTelegramBot
+import common.TestRail.APIClient
+import common.TestRail.TestRails
+import common.helpers.DataReader.getValue
+import org.json.simple.JSONObject
 import org.testng.ITestContext
 import org.testng.ITestListener
 import org.testng.ITestResult
-
+import java.lang.reflect.Method
 
 class TestListener : ITestListener {
     private var successCount = 0
@@ -23,10 +27,16 @@ class TestListener : ITestListener {
     override fun onTestSuccess(result: ITestResult) {
         println("Success: " + result.name)
         incrementSuccessCount()
+        if (result.method.method.getAnnotation(TestRails::class.java)?.id != null) {
+            sendResultToTestRail(true, result.method.method)
+        }
     }
 
     override fun onTestFailure(result: ITestResult) {
         incrementFailedCount()
+        if (result.method.method.getAnnotation(TestRails::class.java)?.id != null) {
+            sendResultToTestRail(false, result.method.method)
+        }
     }
 
     override fun onTestFailedButWithinSuccessPercentage(result: ITestResult) {
@@ -43,14 +53,29 @@ class TestListener : ITestListener {
     }
 
     private fun sendResultTelegram() {
-        val botToken = "5883152658:AAFJUFvuzncaVG0HBaS60pL0ak1pXhA7Guk"
-        val chatId = "303973918"
-        val results = "=======================================================\nРезультаты тестов: Success $successCount, Failed $failedCount, Skip $skipCount\n======================================================="
+        val botToken = getValue("botToken")
+        val chatId = getValue("chatId")
+        val results =
+            "=======================================================\nРезультаты тестов: Success $successCount, Failed $failedCount, Skip $skipCount\n======================================================="
 
         val bot = MyTelegramBot(botToken)
         bot.sendMessage(chatId, results)
     }
 
+    private fun sendResultToTestRail(isSuccess: Boolean, testMethod: Method) {
+        val annotation = testMethod.getAnnotation(TestRails::class.java)
+        val client = APIClient(getValue("APIClient"))
+        client.setUser(getValue("setUser"))
+        client.setPassword(getValue("setPassword"))
+        val apiKey = getValue("apiKey") // Ваш API ключ TestRail
+        client.setApiKey(apiKey)
+        val caseId = annotation?.id
+        val suiteId = "2" // ID набора тестов в TestRail
+        val data = JSONObject()
+        data["status_id"] = if (isSuccess) 1 else 5 // 1 - passed, 5 - failed
+        data["comment"] = "Тест выполнен успешно" // Комментарий к результату (необязательно)
+        client.sendPost("add_result_for_case/$suiteId/$caseId", data)
+    }
     fun incrementSuccessCount() {
         successCount++
     }
