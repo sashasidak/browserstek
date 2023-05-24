@@ -2,6 +2,7 @@ package tests.base
 
 import com.codeborne.selenide.WebDriverRunner
 import common.ApplicationManager
+import common.helpers.VRTHelper
 import constants.Constants
 import org.openqa.selenium.remote.RemoteWebDriver
 import org.openqa.selenium.remote.SessionId
@@ -16,7 +17,7 @@ import java.net.URL
 import java.util.*
 import org.testng.annotations.Optional
 
-
+var vrtHelper: VRTHelper = VRTHelper()
 var applicationManager: ApplicationManager = ApplicationManager()
 
 open class BaseTest {

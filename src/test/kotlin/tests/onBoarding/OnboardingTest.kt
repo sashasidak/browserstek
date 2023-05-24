@@ -5,6 +5,7 @@ import common.helpers.AuthHelper
 import org.testng.annotations.Test
 import tests.base.BaseTest
 import tests.base.applicationManager
+import tests.base.vrtHelper
 
 class OnboardingTest : BaseTest() {
 
@@ -14,6 +15,7 @@ class OnboardingTest : BaseTest() {
         applicationManager.getHelper<AuthHelper>()
             .fullAuth()
             .clickOn()
+        vrtHelper.track("Первый скрин")
     }
 }
 
