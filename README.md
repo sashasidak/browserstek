@@ -18,6 +18,5 @@ Next:
 
 
 Maybe:
-1) Include VRT
-2) Do Run tests from TelegramBot
-3) Include TestRail  - done
+1) Include VRT - done
+2) Include TestRail  - done
