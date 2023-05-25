@@ -1,7 +1,7 @@
 {
     "server": "hub-cloud.browserstack.com",
-    "username": "bsuser_ar47Ts",
-    "access_key": "3fzs1SBbFvqxiVP1HL2y",
+    "username": "bsuser_WNCwvM",
+    "access_key": "jRZwEynszwBuVsAmiqwb",
 
     "capabilities": {
         "project": "Mobile iOS Project",
@@ -11,7 +11,7 @@
         "autoDismissAlerts": true,
         "autoAcceptAlerts": true,
         "browserstack.networkLogs": true,
-        "app": "bs://a1fd16012b15f0f7a3921b56b1d644238126c94a"
+        "app": "bs://384deffd1887545e6269c929b7ef0d63d774fc68"
     },
 
     "environments": [
