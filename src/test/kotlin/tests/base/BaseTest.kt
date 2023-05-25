@@ -44,8 +44,8 @@ open class BaseTest {
         val status = if (result.isSuccess) "passed" else "failed"
         val reason = if (!result.isSuccess) "Element not found on the login page" else ""
 
-        val browserstackUsername = "bsuser_ar47Ts"
-        val browserstackAccessToken = "3fzs1SBbFvqxiVP1HL2y"
+        val browserstackUsername = "bsuser_WNCwvM"
+        val browserstackAccessToken = "jRZwEynszwBuVsAmiqwb"
 
         val url = URL("https://api-cloud.browserstack.com/app-automate/sessions/$sessionId.json")
         val connection = url.openConnection() as HttpURLConnection
