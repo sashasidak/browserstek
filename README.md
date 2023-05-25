@@ -1,22 +1,58 @@
-# browserstak
-how to add browserstak in my project
+Проект для кроссплатформенного тестирования мобильных приложений
 
+Правило наименования для классов:
+Название блока в ТestRail
+Пример: Communal.class
 
-1) Take my Kotlin project and push it in "browserstak" - done
-2) Write first test for the "abank.apk" - done
-3) Check documentations for include browserstak - done
-4) Include it for AOS - done
-5) Include it for iOS - done
-7) Send "Status" - done
-8) Try modify for run at 2 devices - done
+Технологии:
+Appium - фреймворк для тестирования моб приложений
+Selenide - обертка над WebDriver
+Allure - отчеты
+TestNG - фреймворк для тестирования
+Visual-Regression-Tracker - тестирование UI компонентов с помощью сравнения скриншотов
 
+Структура проекта:
+Kotlin + Selenide
 
+ApplicationManager - базовый клас через который происходит обращение к любым экранам/помощникам
+helpers - пакет с помощниками по работе с модулями
+network - пакет с классами по работе с сетевыми запросами
 
-Next:
-1) Integrate Jankins in project - done
-2) Integrate massage in Telegram - done
+constants
+Constants - константы. Платфора/Пользователи/Ключи
+screen - описание экранов по концепции PageObject
+tests - пакет с тестами
 
+resources
+allure.properties - настройки для allure
 
-Maybe:
-1) Include VRT - done
-2) Include TestRail  - done
+Как начать писать тесты:
+Установить appium и поставить все доп. инструменты
+Запустить AppiumServer
+В файле device.props прописать данные запущеных девайсов (в данном файле прописываются только локальные девайсы)
+Установить приложение на девайс/симулятор
+
+Каждый тестовый клас должен включать в себя:
+@Test(description = "Название согласно чеклиста")
+@TestRails - номер кейса в чеклисте регресса TestRail (не обязателен если кейса не описано в TestRails)
+
+Переключение серверов
+В классе Constants - RunVariables поменять значение параметра PLATFORM 
+Возможные значения:
+Platform.AOS - Драйвер запуска теста на Android девайсе в блаке Browserstack
+Platform.iOS - Драйвер запуска теста на iOS девайсе в блаке Browserstack
+
+Все что есть в проекте и о нём
+Преимущества: 
+1) Selenide дает возможность расширить проект и внедрить в него тесты на WEB-сайты
+2) Один тест на две платформы (Android/iOS)
+3) Browserstack позволяет запускать тесты на различных девайсах и с разной конфигурацией, без создания симуляторов. При этом так-же можно ранить тесты сразу на нескольких девайсах (Например два разных Android или iPhone).  
+4) Есть ран на симуляторах/реальных девайсах подсключенных к ПК (в случае если нет возможности использовать Browserstack)
+5) Сравнение скриншотов для тестирование верстки
+6) Отправка отчета в TestRail о статусе тестов
+7) Jenkins удобный CI для запуска job-ы
+8) Allure для создания отчетов (хотя их можно создавать в TestRail)
+9) Telegram bot - просто чтобы приходила смс-ка о том что тесты закончились =) 
+
+Минусы: 
+1) Надеюсь подскажите. Мне сложно их найти 
