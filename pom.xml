@@ -12,6 +12,8 @@
         <kotlin.version>1.7.20</kotlin.version>
         <allure.results.directory>${project.basedir}/target/allure-results</allure.results.directory>
         <aspectj.version>1.8.10</aspectj.version>
+        <defaultSuiteFiles>sample-test.xml</defaultSuiteFiles>
+        <suiteFile>${defaultSuiteFiles}</suiteFile>
     </properties>
 
     <repositories>
