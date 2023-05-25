@@ -1,7 +1,7 @@
 {
     "server": "hub-cloud.browserstack.com",
-    "username": "bsuser_ar47Ts",
-    "access_key": "3fzs1SBbFvqxiVP1HL2y",
+    "username": "bsuser_WNCwvM",
+    "access_key": "jRZwEynszwBuVsAmiqwb",
 
     "capabilities": {
         "project": "Mobile AOS Project",
@@ -10,7 +10,7 @@
         "browserstack.debug": true,
         "autoGrantPermissions": true,
         "browserstack.networkLogs": true,
-        "app": "bs://c7d710900e4d4f64f37bb66f52619b7a9cc40687"
+        "app": "bs://42703c58fed8ab47a88436a336aed54be19e166c"
     },
 
     "environments": [
