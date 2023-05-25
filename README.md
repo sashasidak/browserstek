@@ -13,7 +13,7 @@ how to add browserstak in my project
 
 
 Next:
-1) Integrate Jankins in project
+1) Integrate Jankins in project - done
 2) Integrate massage in Telegram - done
 
 
