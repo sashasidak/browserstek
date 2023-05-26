@@ -41,6 +41,8 @@ allure.properties - настройки для allure
 Возможные значения:
 Platform.AOS - Драйвер запуска теста на Android девайсе в блаке Browserstack
 Platform.iOS - Драйвер запуска теста на iOS девайсе в блаке Browserstack
+Platform.AOS_LOCAL - Драйвер запуска теста на Android локально на компе
+Platform.iOS_LOCAL - Драйвер запуска теста на iOS локально на компе
 
 Все что есть в проекте и о нём
 Преимущества: 
