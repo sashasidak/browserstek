@@ -1,10 +1,14 @@
 package tests.base
 
+import com.codeborne.selenide.WebDriverRunner
 import common.MyTelegramBot
 import common.TestRail.APIClient
 import common.TestRail.TestRails
 import common.helpers.DataReader.getValue
+import io.qameta.allure.Attachment
 import org.json.simple.JSONObject
+import org.openqa.selenium.OutputType
+import org.openqa.selenium.TakesScreenshot
 import org.testng.ITestContext
 import org.testng.ITestListener
 import org.testng.ITestResult
@@ -88,7 +92,7 @@ class TestListener : ITestListener {
         skipCount++
     }
 
-        @Attachment(value = "Screenshot", type = "image/png")
+    @Attachment(value = "Screenshot", type = "image/png")
     private fun saveScreenshotPNG(): ByteArray? {
         return (WebDriverRunner.getWebDriver() as TakesScreenshot).getScreenshotAs(OutputType.BYTES)
     }
