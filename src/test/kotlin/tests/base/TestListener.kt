@@ -37,6 +37,8 @@ class TestListener : ITestListener {
         if (result.method.method.getAnnotation(TestRails::class.java)?.id != null) {
             sendResultToTestRail(false, result.method.method)
         }
+        saveScreenshotPNG()
+        getPageSource()
     }
 
     override fun onTestFailedButWithinSuccessPercentage(result: ITestResult) {
@@ -84,5 +86,14 @@ class TestListener : ITestListener {
     }
     fun incrementSkipCount() {
         skipCount++
+    }
+
+        @Attachment(value = "Screenshot", type = "image/png")
+    private fun saveScreenshotPNG(): ByteArray? {
+        return (WebDriverRunner.getWebDriver() as TakesScreenshot).getScreenshotAs(OutputType.BYTES)
+    }
+    @Attachment(value = "Screen source", type = "file/xml")
+    private fun getPageSource(): String? {
+        return (WebDriverRunner.getWebDriver().pageSource)
     }
 }
